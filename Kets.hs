@@ -1,5 +1,13 @@
 module Kets
-( kz0, kz1, kx0, kx1, ky0, ky1, gop, Gate) where
+( kz0
+, kz1
+, kx0
+, kx1
+, ky0
+, ky1
+, gop
+, Gate) 
+where
 
 import Data.Complex
 
@@ -33,7 +41,7 @@ gop L xs = operate xs [[1,0],[0,-1]]
 
 queryState :: [[Complex Float]] -> String
 queryState k = "Spin " ++ dir k ++ " direction"
-	where 	dir kz0 = "up in z"  --repeated patter. Doesn't work.
+	where 	dir kz0 = "up in z"  --Overlapping pattern. Doesn't work.
 		dir kz1 = "down in z"
 		dir kx0 = "up in x" 
 		dir kx1 = "down in x"
