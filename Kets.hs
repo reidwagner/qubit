@@ -1,38 +1,30 @@
 module Kets
-( Gate(Sz, Sx, Sy, Had, L)
-, kz0
-, kz1
-, kx0
-, kx1
-, ky0
-, ky1
-, gop
+( sz, sx, sy, had, l
+, z0, z1, x0, x1, y0, y1
 , super) 
 where
 
 import Data.Complex
 import Data.List
 
-data Gate = Sz | Sx | Sy | Had | L
 type Ket = [[Complex Float]]
 type Bra = [[Complex Float]]
 type Operator = [[Complex Float]]
 
 --Kets
-kz0 = [[1 :+ 0],[0 :+ 0]] :: Ket
-kz1 = [[0],[1]] :: Ket
-kx0 = norm [[1],[1]] :: Ket
-kx1 = norm [[1],[-1]] :: Ket
-ky0 = norm [[1],[0 :+ 1]] :: Ket
-ky1 = norm [[1],[0 :+ 1]] :: Ket
+z0 = [[1 :+ 0],[0 :+ 0]] :: Ket
+z1 = [[0],[1]] :: Ket
+x0 = norm [[1],[1]] :: Ket
+x1 = norm [[1],[-1]] :: Ket
+y0 = norm [[1],[0 :+ 1]] :: Ket
+y1 = norm [[1],[0 :+ 1]] :: Ket
 
---'g'ate 'op'eration
-gop :: Gate -> Ket -> Ket
-gop Sz xs = operate xs [[1,0],[0,-1]]
-gop Sx xs = operate xs [[0,1],[1,0]]
-gop Sy xs = operate xs [[0,0 :+ (-1)],[0 :+ 1,0]]
-gop Had xs = norm $ operate xs [[1,1],[1,-1]]
-gop L xs = operate xs [[1,0],[0,-1]]
+--Gates
+sz = [[1,0],[0,-1]] :: Operator
+sx = [[0,1],[1,0]] :: Operator
+sy = [[0,0 :+ (-1)],[0 :+ 1,0]] :: Operator
+had = norm [[1,1],[1,-1]] :: Operator
+l = [[1,0],[0,-1]] :: Operator
 
 --Needs to be generalized
 norm :: [[Complex Float]] -> [[Complex Float]]
@@ -77,10 +69,10 @@ zMatOp f mat = [map (zFloatOp f) xs | xs <- mat]
 
 queryState :: Ket -> String
 queryState k
-        | k == kz0 = "Up in Z"
-        | k == kz1 = "Down in Z"
-        | k == kx0 = "Up in X"
-        | k == kx1 = "Down in X"
-        | k == ky0 = "Up in Y"
-        | k == ky1 = "Down in Y"
+        | k == z0 = "Up in Z"
+        | k == z1 = "Down in Z"
+        | k == x0 = "Up in X"
+        | k == x1 = "Down in X"
+        | k == y0 = "Up in Y"
+        | k == y1 = "Down in Y"
         | otherwise = "Superposition with \945 = " ++ (show $ alpha k) ++ " and \946 = " ++ (show $ beta k)
