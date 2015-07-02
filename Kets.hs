@@ -1,4 +1,4 @@
-module Kets
+module Ket
 ( sz, sx, sy, had, l
 , z0, z1, x0, x1, y0, y1
 , super) 
@@ -8,8 +8,11 @@ import Data.Complex
 import Data.List
 
 type Ket = [[Complex Float]]
-type Bra = [[Complex Float]]
+type Bra = [[Complex Float]] -- should be [Complex Float]
 type Operator = [[Complex Float]]
+
+--instance Show Ket where
+--	show k = super k
 
 --Kets
 z0 = [[1 :+ 0],[0 :+ 0]] :: Ket
@@ -25,6 +28,10 @@ sx = [[0,1],[1,0]] :: Operator
 sy = [[0,0 :+ (-1)],[0 :+ 1,0]] :: Operator
 had = norm [[1,1],[1,-1]] :: Operator
 l = [[1,0],[0,-1]] :: Operator
+
+tensorproduct :: Ket -> Ket -> [[Complex Float]]
+--Combining kets [(*)] <*> concat k1 <*> concat k2
+--tensorproduct = [take 2, drop 2]
 
 --Needs to be generalized
 norm :: [[Complex Float]] -> [[Complex Float]]
