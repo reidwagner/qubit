@@ -1,7 +1,7 @@
-import Kets
+import Qubit
 import Data.Complex
 
 main = do
-	putStrLn (super kz0)
+	putStrLn (super z0)
 	putStrLn "Applying Hadamard gate.."
-	putStrLn (super (gop Had kz0))
+	putStrLn (super (operate z0 had))

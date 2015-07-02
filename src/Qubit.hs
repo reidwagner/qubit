@@ -1,7 +1,7 @@
 module Qubit
 ( sz, sx, sy, had, l
 , z0, z1, x0, x1, y0, y1
-, super) 
+, super, operate) 
 where
 
 import Data.Complex
@@ -29,7 +29,7 @@ sy = [[0,0 :+ (-1)],[0 :+ 1,0]] :: Operator
 had = norm [[1,1],[1,-1]] :: Operator
 l = [[1,0],[0,-1]] :: Operator
 
-tensorproduct :: Ket -> Ket -> [[Complex Float]]
+--tensorproduct :: Ket -> Ket -> [[Complex Float]]
 --Combining kets [(*)] <*> concat k1 <*> concat k2
 --tensorproduct = [take 2, drop 2]
 
