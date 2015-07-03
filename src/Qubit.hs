@@ -1,4 +1,4 @@
-module Qubit
+module SRC.Qubit
 ( sz, sx, sy, had, l
 , z0, z1, x0, x1, y0, y1
 , super, operate) 
