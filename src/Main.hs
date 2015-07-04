@@ -13,3 +13,5 @@ loop = putStr ": " >>= \_ -> getLine >>= handler >> loop
 handler :: String -> IO ()
 handler s = do
         if s == "command" then putStrLn ("recognized ")  else putStrLn "unrecognized"
+
+
