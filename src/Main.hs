@@ -1,7 +1,15 @@
+module Main (main) where
+
 import Qubit
 import Data.Complex
 
-main = do
-	putStrLn (super z0)
-	putStrLn "Applying Hadamard gate.."
-	putStrLn (super (operate z0 had))
+main = do 
+	putStr ": "
+	loop
+
+loop :: IO()
+loop = putStr ": " >>= \_ -> getLine >>= handler >> loop
+
+handler :: String -> IO ()
+handler s = do
+        if s == "command" then putStrLn ("recognized ")  else putStrLn "unrecognized"

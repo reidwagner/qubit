@@ -1,4 +1,7 @@
-import SRC.Qubit
+module Main (main) where
+
+import Qubit
+import Test.Hspec
 import Data.Complex
 
 main = do
