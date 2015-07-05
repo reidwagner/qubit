@@ -14,14 +14,25 @@ k1 = kets!!1
 tensor :: State -> State -> State
 tensor k0 k1 = transpose [[(*)] <*> concat k0 <*> concat k1]
 
---WOW. No capitals for function name. Compiler won't tell you. 
+--No capitals for function name. Compiler won't tell you. 
 
---Initializes two qubit basis. Probably a better way to do this with monads. 
+--Initializes two qubit basis. 
 twoQBasis :: [State]
-twoQBasis = chunksOf 4 $ [k0,k1] >>= \s0 -> [k0,k1] >>= \s1 -> tensor s0 s1
+twoQBasis = [k0,k1] >>= \s0 -> [k0,k1] >>= \s1 -> [tensor s0 s1]
 
---There has to be a simpler way. This is unwieldy. Not functioning. 
+--Can I work around this? Starting point for creating a basis. 
+genBasis :: Int -> [State] 
+genBasis n = nQBasis n [k0,k1]
+
+--Working. Creates n qubit basis. 
 nQBasis :: Int -> [State] -> [State]
-nQBasis 2 xs = [[k0,k1] >>= (\k -> xs >>= (\s -> tensor k s))]
-nQBasis n xs = chunksOf (n^2) $ concat $ nQBasis (n-1) [[k0,k1] >>= (\k -> xs >>= (\s -> tensor k s))]
+nQBasis 1 xs = [k0,k1]
+nQBasis 2 xs = [k0,k1] >>= (\k -> xs >>= (\s -> [tensor k s]))
+nQBasis n xs = nQBasis (n-1) [k0,k1] >>= (\k -> xs >>= (\s -> [tensor k s]))
+
+showH :: State -> String
+showH k = matToString $ transpose $ k
+
+showBasis :: [State] -> IO()
+showBasis state = mapM_ (putStr) (map showH state)
 

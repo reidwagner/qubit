@@ -1,7 +1,7 @@
 module Qubit
 ( gates
 , kets
-, super, operate) 
+, super, operate, matToString) 
 where
 
 import Data.Complex
