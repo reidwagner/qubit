@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-tabs #-}
+
 module NQubit (tensor) where
 
 import Data.Complex
@@ -6,6 +8,7 @@ import Data.List.Split
 import Qubit
 
 type State = [[Complex Float]]
+type Operator = [[Complex Float]]
 
 k0 = kets!!0
 k1 = kets!!1
@@ -35,4 +38,18 @@ showH k = matToString $ transpose $ k
 
 showBasis :: [State] -> IO()
 showBasis state = mapM_ (putStr) (map showH state)
+
+--2QB swap gate.
+swap :: Operator
+swap = [[1,0,0,0],
+	[0,0,1,0],
+	[0,1,0,0],
+	[0,0,0,1]]
+
+--2QB cnot gate. 
+cnot :: Operator 
+cnot = [[1,0,0,0],
+	[0,1,0,0],
+	[0,0,0,1],
+	[0,0,1,0]]
 
