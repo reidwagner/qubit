@@ -2,6 +2,7 @@ module NQubit (tensor) where
 
 import Data.Complex
 import Data.List
+import Data.List.Split
 import Qubit
 
 type State = [[Complex Float]]
@@ -17,7 +18,10 @@ tensor k0 k1 = transpose [[(*)] <*> concat k0 <*> concat k1]
 
 --Initializes two qubit basis. Probably a better way to do this with monads. 
 twoQBasis :: [State]
-twoQBasis = [tensor s0 s1 | s0 <- [k0,k1], s1 <- [k0,k1]]
+twoQBasis = chunksOf 4 $ [k0,k1] >>= \s0 -> [k0,k1] >>= \s1 -> tensor s0 s1
 
---ThreeQBasis :: [State]
---ThreeQBasis = [k0,k1] >>= \x -> tensor k0 k1
+--There has to be a simpler way. This is unwieldy. Not functioning. 
+nQBasis :: Int -> [State] -> [State]
+nQBasis 2 xs = [[k0,k1] >>= (\k -> xs >>= (\s -> tensor k s))]
+nQBasis n xs = chunksOf (n^2) $ concat $ nQBasis (n-1) [[k0,k1] >>= (\k -> xs >>= (\s -> tensor k s))]
+
