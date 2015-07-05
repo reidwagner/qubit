@@ -34,10 +34,10 @@ nQBasis 2 xs = [k0,k1] >>= (\k -> xs >>= (\s -> [tensor k s]))
 nQBasis n xs = nQBasis (n-1) [k0,k1] >>= (\k -> xs >>= (\s -> [tensor k s]))
 
 showH :: State -> String
-showH k = matToString $ transpose $ k
+showH k = "[" ++ (matToString $ transpose $ k) ++ "]"
 
 showBasis :: [State] -> IO()
-showBasis state = mapM_ (putStr) (map showH state)
+showBasis state = mapM_ (putStrLn) (map showH state)
 
 --2QB swap gate.
 swap :: Operator

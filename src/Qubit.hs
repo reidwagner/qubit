@@ -1,3 +1,5 @@
+{-# OPTIONS_GHC -fno-warn-tabs #-}
+
 module Qubit
 ( gates
 , kets
@@ -45,11 +47,17 @@ measure k = ((alpha k)^2, (beta k)^2)
 
 -- Inner product.
 inner :: State -> State -> Complex Float
-inner [[a],[b]] [[c],[d]] = a*c + b*d
+inner s1 s2 = sum $ zipWith (*) (head $ transpose s1) (head $ transpose s2)
+
+--Should make instance of Num, Show
+--add :: State -> State -> State
 
 -- Operation of operator on ket. Will need to be generalized.
 operate :: State -> Operator -> State
 operate [[x],[y]] [[a,b],[c,d]] =  [[(x*a)+(y*b)], [(x*c)+(y*d)]]
+
+operate :: State -> Operator -> State 
+operate s o = 
 
 {-
  - alpha - returns first coefficient
@@ -105,7 +113,7 @@ rowToString row = foldr (\acc x -> acc ++ " " ++ x) "" (map readComplex row)
 
 -- Creates string representing matrix
 matToString :: [[Complex Float]] -> String 
-matToString mat = foldr (\acc x -> acc ++ "\n" ++ x) "" (map rowToString mat)
+matToString mat = init $ init $ foldr (\acc x -> acc ++ "\n" ++ x) "" (map rowToString mat)
 
 --Read complex float. 
 readComplex :: Complex Float -> String
