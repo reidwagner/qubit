@@ -8,21 +8,20 @@ import Data.Complex
 import Data.List
 
 --All operations are done with complex float matrices
-type Ket = [[Complex Float]] 
-type Bra = [[Complex Float]] -- should be [Complex Float] ?
+type State = [[Complex Float]] 
 type Operator = [[Complex Float]]
 
 {- 
- - Kets representing spin in x,y,z directions. 
+ - States representing spin in x,y,z directions. 
  -}
-z0 = [[1 :+ 0],[0 :+ 0]] :: Ket -- <- Basis
-z1 = [[0],[1]] :: Ket		-- <- 
-x0 = norm [[1],[1]] :: Ket
-x1 = norm [[1],[-1]] :: Ket
-y0 = norm [[1],[0 :+ 1]] :: Ket
-y1 = norm [[1],[0 :+ 1]] :: Ket
+z0 = [[1 :+ 0],[0 :+ 0]] :: State -- <- Basis
+z1 = [[0],[1]] :: State		-- <- 
+x0 = norm [[1],[1]] :: State
+x1 = norm [[1],[-1]] :: State
+y0 = norm [[1],[0 :+ 1]] :: State
+y1 = norm [[1],[0 :+ 1]] :: State
 
-kets = [z0,z1,x0,x1,y0,y1] :: [Ket]
+kets = [z0,z1,x0,x1,y0,y1] :: [State]
 
 {-
  - Following are some basic quantum gate operators
@@ -41,25 +40,25 @@ gates = [sz,sx,sy,had,l] :: [Operator]
  -}
 
 -- Measures a quantum state. Returns of a tuple of measurement probability in each basis vector. 
-measure :: Ket -> (Complex Float, Complex Float)
+measure :: State -> (Complex Float, Complex Float)
 measure k = ((alpha k)^2, (beta k)^2) 
 
 -- Inner product.
-inner :: Bra -> Ket -> Complex Float
+inner :: State -> State -> Complex Float
 inner [[a],[b]] [[c],[d]] = a*c + b*d
 
 -- Operation of operator on ket. Will need to be generalized.
-operate :: Ket -> Operator -> Ket
+operate :: State -> Operator -> State
 operate [[x],[y]] [[a,b],[c,d]] =  [[(x*a)+(y*b)], [(x*c)+(y*d)]]
 
 {-
  - alpha - returns first coefficient
  - beta - returns second coefficient 
  -}
-alpha :: Ket -> Complex Float
+alpha :: State -> Complex Float
 alpha k = k!!0!!0
 
-beta :: Ket -> Complex Float
+beta :: State -> Complex Float
 beta k = k!!1!!0
 
 --Simply normalizes the vector [1,1]. Will need to be generalized. 
@@ -84,7 +83,7 @@ zMatOp f mat = [map (zFloatOp f) xs | xs <- mat]
 
 -- Creates readable string of the form c0|0> + c1|1>, with a few specific cases. 
 -- E.g. |1> for spin up. 
-super :: Ket -> String
+super :: State -> String
 super k 
 	| alphak == "" = betak
 	| betak == "" = alphak
@@ -119,7 +118,7 @@ readComplex z
 		imag = roundDec $ imagPart z
 
 --Provides description of quantum state. 
-queryState :: Ket -> String
+queryState :: State -> String
 queryState k
         | k == z0 = "Up in Z"
         | k == z1 = "Down in Z"
