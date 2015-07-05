@@ -5,6 +5,11 @@ import Test.Hspec
 import Data.Complex
 
 main = do
+	let z0 = kets!!0
+	let had = gates!!3
+	let sx = gates!!0
+	let sy = gates!!1
+	let sz = gates!!2
 	putStrLn "Begin with a spin down state:" 
         putStrLn (super z0)
         putStrLn "Applying Hadamard gate rotates the state pi about the (x+z)/sqrt(2) axis."

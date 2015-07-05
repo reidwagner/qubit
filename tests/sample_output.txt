@@ -1,0 +1,10 @@
+Begin with a spin down state:
+|0>
+Applying Hadamard gate rotates the state pi about the (x+z)/sqrt(2) axis.
+0.707|0> + 0.707|1>
+Applying Pauli-X gate rotates π about the X-axis. This is a quantum NOT gate.
+|0>
+Applying Pauli-Y gate rotates π about the Y-axis.
+|1>
+Applying Pauli-Z gate rotates π about the Z-axis. This is a phaseshift for θ = π.
+i|1>
