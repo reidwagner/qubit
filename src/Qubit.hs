@@ -1,6 +1,6 @@
 module Qubit
-( sz, sx, sy, had, l
-, z0, z1, x0, x1, y0, y1
+( gates
+, kets
 , super, operate) 
 where
 
@@ -22,6 +22,8 @@ x1 = norm [[1],[-1]] :: Ket
 y0 = norm [[1],[0 :+ 1]] :: Ket
 y1 = norm [[1],[0 :+ 1]] :: Ket
 
+kets = [z0,z1,x0,x1,y0,y1] :: [Ket]
+
 {-
  - Following are some basic quantum gate operators
  -}
@@ -31,15 +33,12 @@ sy = [[0,0 :+ (-1)],[0 :+ 1,0]] :: Operator     -- <-
 had = norm [[1,1],[1,-1]] :: Operator 		-- <- Hadamard
 l = [[1,0],[0,-1]] :: Operator                  
 
+gates = [sz,sx,sy,had,l] :: [Operator]
+
 {-
  - Following are a series of functions for calculations.
  - Includes some quantum operations as well as simple math.  
  -}
-
--- Tensor product. (x)  
-tensorProd :: Ket -> Ket -> [[Complex Float]] 
-tensorProd k0 k1 = let combined = [(*)] <*> concat k0 <*> concat k1 in [take len combined, drop len combined]
-	where len = length k0
 
 -- Measures a quantum state. Returns of a tuple of measurement probability in each basis vector. 
 measure :: Ket -> (Complex Float, Complex Float)
