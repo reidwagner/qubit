@@ -4,9 +4,6 @@ import Qubit
 import Data.Complex
 import System.IO
 
---Test commit comment
---test commit comment 2
-
 main = do 
 	command <- prompt ">> " 
 	handler command
