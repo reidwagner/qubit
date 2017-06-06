@@ -56,9 +56,6 @@ inner s1 s2 = sum $ zipWith (*) (head $ transpose s1) (head $ transpose s2)
 operate :: State -> Operator -> State
 operate [[x],[y]] [[a,b],[c,d]] =  [[(x*a)+(y*b)], [(x*c)+(y*d)]]
 
-operate :: State -> Operator -> State 
-operate s o = 
-
 {-
  - alpha - returns first coefficient
  - beta - returns second coefficient 
